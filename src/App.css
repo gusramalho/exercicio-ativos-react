@@ -1,12 +1,12 @@
 .actives-app button {
   text-align: left;
   width: 100%;
-  border: 1px solid lightblue;
+  border: 1px solid lightgray;
  
-  background-color: lightblue;
+  background-color: lightgray;
   padding: 3px;
-  color: blue;
+  color: #111111;
   font-weight: bold;
-  font-size: 18px; 
+  font-size: 18px;  
 
 }

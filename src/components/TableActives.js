@@ -146,6 +146,15 @@ class TableActives extends Component {
   }
 
 
+  renderTotalPercentage = (percent) => {
+
+    if (percent.toFixed(2) !== '100.00') 
+      return (<th className="active-percent"> {percent.toFixed(2)}%</th>) 
+    else
+      return (<th> {percent.toFixed(2)}%</th>)
+    
+  }
+
 
   render() {
     const { actives, capital, totalPercentage, total } = this.state;
@@ -159,10 +168,10 @@ class TableActives extends Component {
             <span>(Restante: {(capital - total).toFixed(2)})</span>
           </th>
 
-          <th>{totalPercentage.toFixed(2)}%</th>
+          {this.renderTotalPercentage(totalPercentage)}
 
           <th></th>
-
+          
           {
             actives.map(active => {
               return (
@@ -180,7 +189,7 @@ class TableActives extends Component {
 
 
         </table>
-
+        <br></br>
         <button className="btn-add" onClick={this.addActive}>Adicionar ativo</button>
       </div>
 
