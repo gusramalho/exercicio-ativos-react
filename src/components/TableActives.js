@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import reactCSS from 'reactcss';
+import 'rc-color-picker/assets/index.css';
+import ColorPicker from 'rc-color-picker';
 
 import './TableActives.css';
 class TableActives extends Component {
@@ -11,7 +14,7 @@ class TableActives extends Component {
     total: 0,
     totalPercentage: 0,
     locked: true,
-
+    color:  '#add8e6',
   }
 
   componentDidMount() {
@@ -105,10 +108,23 @@ class TableActives extends Component {
 
       this.setState({
         actives: updatedActives,
-        capital: (locked) ? capital : capital,
+        capital,
         total: this.total(updatedActives),
         totalPercentage: this.totalPercentage(updatedActives),
       })
+
+    } else {
+
+      updatedActives = updatedActives.map(active => (active.id === id) ? { ...active, value: percentage / 100 * capital } : active);
+      console.log(this.totalPercentage(updatedActives));
+
+      this.setState({
+        actives: updatedActives,
+        capital,
+        total: capital,
+        totalPercentage: this.totalPercentage(updatedActives),
+      });
+      
     }
 
   }
@@ -132,7 +148,7 @@ class TableActives extends Component {
     } else {
 
       const updatedActives = actives.map(active => ({ ...active, percentage: active.value / capital * 100 }));
-
+      
       this.setState({
         actives: updatedActives,
         capital,
@@ -155,9 +171,9 @@ class TableActives extends Component {
     
   }
 
-
   render() {
-    const { actives, capital, totalPercentage, total } = this.state;
+    const { actives, capital, totalPercentage, total, style } = this.state;
+
 
     return (
       <div className='table-actives'>
@@ -170,8 +186,8 @@ class TableActives extends Component {
 
           {this.renderTotalPercentage(totalPercentage)}
 
-          <th></th>
-          
+          <th> <ColorPicker animation="slide-up" color={"#add8e6"}/></th>
+
           {
             actives.map(active => {
               return (
