@@ -1,21 +1,43 @@
 import React, { Component } from 'react';
 import TableActives from './components/TableActives'
 
+import './App.css';
 class App extends Component {
 	
+
 	state = {
-		actives: [{id: 0, name: 'company', value: 1000, percentage: 100}],
+
+		portfolios: [
+									[
+										{id: 0, name: 'company', value: 1000, percentage: 50},
+									  {id: 1, name: 'company', value: 1000, percentage: 50},
+									],
+								]
 	}
 
+	handleNewPortfolio = () => this.setState({portfolios: [...this.state.portfolios, undefined]});
+	
+
 	render() {
-		const { actives } = this.state;
+		const { portfolios } = this.state;
 		return (
-			<div>
-				<TableActives actives={actives}></TableActives>
+			<div class="actives-app">
+				{
+					portfolios.map((actives) => {
+						return (
+							<div>
+								 <hr></hr>
+								 <TableActives actives={actives}></TableActives>
+							
+							</div>
+						)
+					})
+				}
+				
 
 				<hr></hr>
 				<p></p>
-				<TableActives></TableActives>
+				<button onClick={this.handleNewPortfolio}>Novo portfólio</button>
 
 			</div>
 

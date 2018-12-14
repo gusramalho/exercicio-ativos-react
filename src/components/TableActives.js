@@ -11,6 +11,7 @@ class TableActives extends Component {
     total: 0,
     totalPercentage: 0,
     locked: true,
+
   }
 
   componentDidMount() {
@@ -18,6 +19,7 @@ class TableActives extends Component {
 
     if (actives !== undefined) {
       const total = actives.reduce((total, active) => total + active.value, 0);
+
       this.setState({
         actives,
         currentId: actives.length - 1,
@@ -30,13 +32,13 @@ class TableActives extends Component {
     }
   }
 
-  getActive = (id) => this.state.actives.filter(active => active.id === id);
+  getActive = id => this.state.actives.filter(active => active.id === id);
 
-  total = (actives) => actives.reduce((total, active) => total + active.value, 0);
+  total = actives => actives.reduce((total, active) => total + active.value, 0);
 
-  percentage = (active) => (this.state.capital !== 0) ? (active.value / this.state.capital * 100) : 0;
+  percentage = active => (this.state.capital !== 0) ? (active.value / this.state.capital * 100) : 0;
 
-  totalPercentage = (actives) => actives.reduce((total, active) => total + active.percentage, 0);
+  totalPercentage = actives => actives.reduce((total, active) => total + active.percentage, 0);
 
   addActive = () => {
     const { actives, currentId } = this.state;
@@ -48,14 +50,14 @@ class TableActives extends Component {
   }
 
 
-  removeActive = (event) => {
+  removeActive = event => {
     const { actives, locked, capital } = this.state;
     let updatedActives = actives.filter(active => active.id !== Number(event.target.dataset.active));
 
     const updatedTotal = this.total(updatedActives);
 
     if (locked)
-      updatedActives = updatedActives.map(active => ({ ...active, percentage: active.value / updatedTotal * 100 }));
+      updatedActives = updatedActives.map(active => ({ ...active, percentage: (updatedTotal !== 0) ? active.value / updatedTotal * 100 : 0 }));
 
     this.setState({
       actives: updatedActives,
@@ -66,7 +68,7 @@ class TableActives extends Component {
 
   }
 
-  updateValue = (event) => {
+  updateValue = event => {
 
     const { actives, capital, locked } = this.state;
     const value = Number(event.target.value);
@@ -89,7 +91,7 @@ class TableActives extends Component {
 
   }
 
-  updatePercentage = (event) => {
+  updatePercentage = event => {
 
     const { actives, capital, locked } = this.state;
     const percentage = Number(event.target.value);
@@ -111,18 +113,55 @@ class TableActives extends Component {
 
   }
 
+  updateCapital = event => {
+
+    const { actives, locked } = this.state;
+    const capital = Number(event.target.value);
+
+
+    if (!locked) {
+      const updatedActives = actives.map(active => ({ ...active, value: active.percentage * capital / 100 }));
+
+      this.setState({
+        actives: updatedActives,
+        capital,
+        total: this.total(updatedActives),
+        totalPercentage: this.totalPercentage(updatedActives),
+      })
+
+    } else {
+
+      const updatedActives = actives.map(active => ({ ...active, percentage: active.value / capital * 100 }));
+
+      this.setState({
+        actives: updatedActives,
+        capital,
+        total: this.total(updatedActives),
+        totalPercentage: this.totalPercentage(updatedActives),
+        locked: false,
+      })
+
+    }
+
+  }
+
 
 
   render() {
-    const { actives, capital, totalPercentage } = this.state;
+    const { actives, capital, totalPercentage, total } = this.state;
 
     return (
       <div className='table-actives'>
         <table>
-          <th class="active-name">Ativos({actives.length})</th>
-          <th>R$<input type="number" value={capital} /></th>
+          <th className="active-name">Ativos({actives.length})</th>
+          <th>
+            R$<input type="number" value={capital.toFixed(2)} onChange={this.updateCapital} />
+            <span>(Restante: {(capital - total).toFixed(2)})</span>
+          </th>
+
           <th>{totalPercentage.toFixed(2)}%</th>
-          <th>X</th>
+
+          <th></th>
 
           {
             actives.map(active => {
@@ -130,9 +169,9 @@ class TableActives extends Component {
 
                 <tr>
                   <td className="active-name">{active.name.toUpperCase()}</td>
-                  <td>R$ <input type="number" data-active={active.id} value={active.value.toFixed(2)} onChange={this.updateValue} /></td>
+                  <td>R$<input type="number" data-active={active.id} value={active.value.toFixed(2)} onChange={this.updateValue} /></td>
                   <td><input type="number" data-active={active.id} value={active.percentage.toFixed(2)} onChange={this.updatePercentage} /></td>
-                  <td><a className="btn-remove"data-active={active.id} onClick={this.removeActive}>X</a></td>
+                  <td><a className="btn-remove" data-active={active.id} onClick={this.removeActive}>X</a></td>
                 </tr>
 
               );
@@ -141,7 +180,7 @@ class TableActives extends Component {
 
 
         </table>
-        
+
         <button className="btn-add" onClick={this.addActive}>Adicionar ativo</button>
       </div>
 
