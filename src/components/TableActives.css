@@ -1,0 +1,62 @@
+.table-actives table {
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  color: #111111;
+  width: 100%;
+  background-color: #f2f2f2;
+  border-collapse: collapse;
+}
+.table-actives th {
+  background-color: lightblue;
+}
+.table-actives th, td{
+  text-align: center;
+  font-weight: normal;
+  padding: 10px;
+}
+
+.table-actives tr:nth-child(even){
+  background-color: #FFFFFF;
+}
+
+.table-actives input[type=number]{
+  text-align: right;
+  border: 1px solid #dddddd;
+  border-radius: 5px;
+  padding: 3px;
+  width: 100px;
+}
+
+.table-actives .btn-add{
+  text-align: left;
+  width: 100%;
+  border: 1px solid lightblue;
+ 
+  background-color: lightblue;
+  padding: 3px;
+  color: blue;
+  font-weight: bold;
+  font-size: 18px;  
+}
+
+.table-actives .active-name{
+  width: 60%;
+  text-align: left;
+}
+
+.table-actives .btn-remove{
+  font-weight: 1000;
+  color: blue;
+}
+
+.table-actives .btn-remove:hover{
+  font-weight: 1200;
+  color: blue;
+  cursor: pointer;
+}
+
+.table-actives input[type=number]::-webkit-inner-spin-button, 
+.table-actives input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import TableActives from './TableActives'
+import TableActives from './components/TableActives'
 
 class App extends Component {
 	
@@ -10,8 +10,14 @@ class App extends Component {
 	render() {
 		const { actives } = this.state;
 		return (
-		
-			<TableActives actives={actives}></TableActives>
+			<div>
+				<TableActives actives={actives}></TableActives>
+
+				<hr></hr>
+				<p></p>
+				<TableActives></TableActives>
+
+			</div>
 
       
     );
