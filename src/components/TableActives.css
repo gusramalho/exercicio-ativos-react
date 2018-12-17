@@ -1,13 +1,22 @@
+.table-actives {
+  font-size: 12px;
+  color: #111111;
+  background-color: #f1f1f1;
+  padding: 2px;
+
+}
+
 .table-actives table {
   font-family: Arial, sans-serif;
-  font-size: 14px;
   color: #111111;
   width: 100%;
-  background-color: #f2f2f2;
+  background-color: #f1f1f1;
   border-collapse: collapse;
 }
+
 .table-actives th {
-  background-color: lightblue;
+  background-color: #e5e5e5;
+  font-size: 18px;
 }
 .table-actives th, td{
   text-align: center;
@@ -15,8 +24,13 @@
   padding: 10px;
 }
 
+.table-actives tr{
+  border-radius: 10px;
+}
+
 .table-actives tr:nth-child(even){
-  background-color: #FFFFFF;
+  background-color: #f2f2f2 ;
+ 
 }
 
 .table-actives input[type=number]{
@@ -30,17 +44,15 @@
 .table-actives .btn-add{
   text-align: left;
   width: 100%;
-  border: 1px solid lightgray;
- 
   background-color: lightgray;
   padding: 3px;
-  color: #111111;
+  color: blue;
   font-weight: bold;
-  font-size: 18px;  
+  font-size: 14px;  
 }
 
 .table-actives .active-name{
-  width: 60%;
+  width: 70%;
   text-align: left;
 }
 
@@ -67,6 +79,14 @@
 
 .table-actives .color-picker {
   width: 10px;
+}
+
+.table-actives .active-total {
+
+  width: 15%;
+}
+.table-actives .active-total span {
+  font-size: 12px;
 }
 
 

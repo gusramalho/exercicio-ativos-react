@@ -6,7 +6,7 @@ class App extends Component {
 
 
 	state = {
-
+ 
 		portfolios: [
 			[
 				{ id: 0, name: 'company1', value: 1000, percentage: 50 },

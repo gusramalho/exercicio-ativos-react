@@ -176,17 +176,17 @@ class TableActives extends Component {
 
 
     return (
-      <div className='table-actives'>
-        <table>
+      <div className='table-actives' >
+        <table >
           <th className="active-name">Ativos({actives.length})</th>
-          <th>
+          <th className="active-total">
             R$<input type="number" value={capital.toFixed(2)} onChange={this.updateCapital} />
             <span>(Restante: {(capital - total).toFixed(2)})</span>
           </th>
 
           {this.renderTotalPercentage(totalPercentage)}
 
-          <th> <ColorPicker animation="slide-up" color={"#add8e6"}/></th>
+          <th> </th>
 
           {
             actives.map(active => {
