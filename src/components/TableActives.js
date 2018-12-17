@@ -3,6 +3,7 @@ import reactCSS from 'reactcss';
 import 'rc-color-picker/assets/index.css';
 import ColorPicker from 'rc-color-picker';
 
+
 import './TableActives.css';
 class TableActives extends Component {
 
@@ -14,7 +15,7 @@ class TableActives extends Component {
     total: 0,
     totalPercentage: 0,
     locked: true,
-    color:  '#add8e6',
+    color:  '#e5e5e5',
   }
 
   componentDidMount() {
@@ -30,6 +31,7 @@ class TableActives extends Component {
         capital: total,
         total: total,
         totalPercentage: this.totalPercentage(actives),
+        color:  '#e5e5e5',
       });
 
     }
@@ -96,7 +98,7 @@ class TableActives extends Component {
 
   updatePercentage = event => {
 
-    const { actives, capital, locked } = this.state;
+    const { actives, capital, locked, totalPercentage } = this.state;
     const percentage = Number(event.target.value);
     const id = Number(event.target.dataset.active);
 
@@ -115,13 +117,15 @@ class TableActives extends Component {
 
     } else {
 
-      updatedActives = updatedActives.map(active => (active.id === id) ? { ...active, value: percentage / 100 * capital } : active);
-      console.log(this.totalPercentage(updatedActives));
 
+      const totalCapital = 100 * capital / totalPercentage;
+     
+      updatedActives = updatedActives.map(active => (active.id === id) ? { ...active, value: percentage / 100 * totalCapital } : active);
+   
       this.setState({
         actives: updatedActives,
-        capital,
-        total: capital,
+        capital:  this.total(updatedActives),
+        total: this.total(updatedActives),
         totalPercentage: this.totalPercentage(updatedActives),
       });
       
@@ -164,20 +168,35 @@ class TableActives extends Component {
 
   renderTotalPercentage = (percent) => {
 
-    if (percent.toFixed(2) !== '100.00') 
-      return (<th className="active-percent"> {percent.toFixed(2)}%</th>) 
+    if (percent.toFixed(2) !== '100.00' ) 
+      return (<th  className="active-percent"> {percent.toFixed(2)}%</th>) 
     else
       return (<th> {percent.toFixed(2)}%</th>)
     
   }
 
+  updateColor = colors => {
+
+    this.setState({color: colors.color});
+  }
+
   render() {
-    const { actives, capital, totalPercentage, total, style } = this.state;
+    const { actives, capital, totalPercentage, total, color } = this.state;
+
+    const styles = reactCSS({
+
+      'default': {
+        color: {
+          borderColor: color,
+        },  
+      },
+    });
 
 
     return (
-      <div className='table-actives' >
-        <table >
+      <div className='table-actives'>
+        <hr style={styles.color} ></hr>
+        <table>
           <th className="active-name">Ativos({actives.length})</th>
           <th className="active-total">
             R$<input type="number" value={capital.toFixed(2)} onChange={this.updateCapital} />
@@ -186,7 +205,7 @@ class TableActives extends Component {
 
           {this.renderTotalPercentage(totalPercentage)}
 
-          <th> </th>
+          <th><ColorPicker color={this.state.color} onChange={this.updateColor}></ColorPicker></th>
 
           {
             actives.map(active => {

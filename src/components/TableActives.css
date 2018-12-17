@@ -3,7 +3,7 @@
   color: #111111;
   background-color: #f1f1f1;
   padding: 2px;
-
+  margin-bottom: 10px;
 }
 
 .table-actives table {
@@ -89,4 +89,7 @@
   font-size: 12px;
 }
 
-
+.table-actives hr {
+  border: 2px solid black;
+  margin: 0;
+}

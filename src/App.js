@@ -28,14 +28,12 @@ class App extends Component {
 					portfolios.map((actives) => {
 						return (
 							<div>
-								<hr></hr>
 								<TableActives actives={actives}></TableActives>
 							</div>
 						)
 					})
 				}
-
-				<hr></hr>
+				
 				<p></p>
 				<button onClick={this.handleNewPortfolio}>Novo portfólio</button>
 
