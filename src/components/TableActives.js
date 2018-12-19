@@ -200,7 +200,7 @@ class TableActives extends Component {
           <th className="active-name">Ativos({actives.length})</th>
           <th className="active-total">
             R$<input type="number" value={capital.toFixed(2)} onChange={this.updateCapital} />
-            <span>(Restante: {(capital - total).toFixed(2)})</span>
+            <br></br><span>(Restante: {(capital - total).toFixed(2)})</span>
           </th>
 
           {this.renderTotalPercentage(totalPercentage)}

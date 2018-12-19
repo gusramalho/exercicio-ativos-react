@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import TableActives from './components/TableActives'
+import TableActives from './components/TableActives';
+
 
 import './App.css';
 class App extends Component {
@@ -37,6 +38,7 @@ class App extends Component {
 				<p></p>
 				<button onClick={this.handleNewPortfolio}>Novo portfólio</button>
 
+		
 			</div>
 
 		);
