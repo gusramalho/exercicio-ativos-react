@@ -12,8 +12,16 @@ const initialState = [
 
 const portfolios = (state = initialState, action) => {
   switch(action.type){
-    case 'ADD_PORTFOLIO':
+    case 'ADD_PORTFOLIO': {
+      console.log('add portfolio');
       return [...state, {id: ++portId, actives: undefined}];
+    }
+      
+    case 'REMOVE_PORTFOLIO':{
+      console.log('remove portfolio');
+     return state.filter(portfolio => (portfolio.id !== action.id));
+      
+    }
     default:
       return state;
   }

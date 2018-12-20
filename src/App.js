@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+
 import TableActives from './components/TableActives';
+
 import { addPortfolio } from './actions';
+
 
 import './App.css';
 
@@ -17,9 +20,11 @@ class App extends Component {
 			<div class="actives-app">
 				{
 					portfolios.map(({id, actives}) => {
-						return (
+						
+ 						return (
 							<div>
-								<TableActives actives={actives}></TableActives>
+								<TableActives id={id} actives={actives}></TableActives> 
+								
 							</div>
 						)
 					})

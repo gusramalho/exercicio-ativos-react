@@ -7,7 +7,6 @@ import ColorPicker from 'rc-color-picker';
 import './TableActives.css';
 class TableActives extends Component {
 
-
   state = {
     actives: [],
     currentId: 0,
@@ -36,8 +35,6 @@ class TableActives extends Component {
 
     }
   }
-
-  getActive = id => this.state.actives.filter(active => active.id === id);
 
   total = actives => actives.reduce((total, active) => total + active.value, 0);
 
@@ -173,6 +170,8 @@ class TableActives extends Component {
   render() {
     const { actives, capital, totalPercentage, total, color } = this.state;
 
+    const { id, deletePortfolio } = this.props;
+
     const styles = reactCSS({
 
       'default': {
@@ -199,7 +198,7 @@ class TableActives extends Component {
             <br></br><span>(Restante: {(capital - total).toFixed(2)})</span>
           </th>
 
-          <th className={totalPercentage.toFixed(2) === '100.00' ? '' : "active-percent"}> {totalPercentage.toFixed(2)}%</th>
+          <th className={totalPercentage.toFixed(2) === '100.00' || totalPercentage.toFixed(2) === '0.00' ? '' : "active-percent"}> {totalPercentage.toFixed(2)}%</th>
 
           <th><ColorPicker color={this.state.color} onChange={this.updateColor}></ColorPicker></th>
 
