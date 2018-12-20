@@ -41,19 +41,6 @@
   width: 100px;
 }
 
-.table-actives .btn-add{
-  text-align: left;
-  width: 100%;
-  background-color: lightgray;
-  padding: 3px;
-  color: #111111;
-  font-weight: bold;
-  font-size: 14px;  
-}
-
-.table-actives .btn-add:hover{
-  background-color: darkgray;
-}
 
 .table-actives .active-name{
   width: 70%;
@@ -96,4 +83,38 @@
 .table-actives hr {
   border: 2px solid black;
   margin: 0;
+}
+
+.table-actives .footer {
+  display: inline;
+}
+
+
+.table-actives .btn-add {
+  text-align: left;
+  width: 85%;
+  background-color: lightgray;
+  padding: 3px;
+  color: #111111;
+  font-weight: bold;
+  font-size: 14px;  
+}
+
+.table-actives .btn-add:hover {
+  background-color: darkgray;
+}
+
+.table-actives .btn-remove-portfolio  {
+  text-align: left;
+  width: 15%;
+  background-color: lightgray;
+  padding: 3px;
+  color: #111111;
+  font-weight: bold;
+  font-size: 14px;  
+}
+
+
+.table-actives .btn-remove-portfolio:hover {
+  background-color: darkgray;
 }

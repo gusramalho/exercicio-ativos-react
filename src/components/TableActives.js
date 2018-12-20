@@ -165,16 +165,6 @@ class TableActives extends Component {
 
   }
 
-
-  renderTotalPercentage = (percent) => {
-
-    if (percent.toFixed(2) !== '100.00' ) 
-      return (<th  className="active-percent"> {percent.toFixed(2)}%</th>) 
-    else
-      return (<th> {percent.toFixed(2)}%</th>)
-    
-  }
-
   updateColor = colors => {
 
     this.setState({color: colors.color});
@@ -191,7 +181,6 @@ class TableActives extends Component {
         },  
       },
     });
-
 
     return (
       <div className='table-actives'>
@@ -226,7 +215,10 @@ class TableActives extends Component {
 
         </table>
         <br></br>
-        <button className="btn-add" onClick={this.addActive}> <i class="fas fa-plus-square"></i> Adicionar ativo</button>
+        <div className='footer'>
+          <button className="btn-add" onClick={this.addActive}> <i class="fas fa-plus-square"></i> Adicionar ativo</button>
+          <button className="btn-remove-portfolio"><i class="fas fa-times-circle"></i> Excluir portfolio</button>
+        </div>
       </div>
 
     );
