@@ -15,7 +15,7 @@ class TableActives extends Component {
     total: 0,
     totalPercentage: 0,
     locked: true,
-    color:  '#e5e5e5',
+    color:  '#1c1c1c',
   }
 
   componentDidMount() {
@@ -31,7 +31,7 @@ class TableActives extends Component {
         capital: total,
         total: total,
         totalPercentage: this.totalPercentage(actives),
-        color:  '#e5e5e5',
+        color:  '#1c1c1c',
       });
 
     }
@@ -176,16 +176,22 @@ class TableActives extends Component {
     const styles = reactCSS({
 
       'default': {
-        color: {
+        hrColor: {
           borderColor: color,
         },  
+        iconColor: {
+          color,
+        }
+
+
+
       },
     });
 
     return (
       <div className='table-actives'>
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous"></link>
-        <hr style={styles.color} ></hr>
+        <hr style={styles.hrColor} ></hr>
         <table>
           <th className="active-name">Ativos({actives.length})</th>
           <th className="active-total">
@@ -216,9 +222,10 @@ class TableActives extends Component {
         </table>
         <br></br>
         <div className='footer'>
-          <button className="btn-add" onClick={this.addActive}> <i class="fas fa-plus-square"></i> Adicionar ativo</button>
-          <button className="btn-remove-portfolio"><i class="fas fa-times-circle"></i> Excluir portfolio</button>
+          <button className="btn-add" onClick={this.addActive} style={styles.iconColor} > <i class="fas fa-plus-square"></i> Adicionar ativo</button>
+          <button className="btn-remove-portfolio" style={styles.iconColor} ><i  class="fas fa-times-circle"></i> Excluir portfolio</button>
         </div>
+        <hr style={styles.hrColor}></hr>
       </div>
 
     );
