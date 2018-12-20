@@ -1,32 +1,22 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import TableActives from './components/TableActives';
-
+import { addPortfolio } from './actions';
 
 import './App.css';
+
 class App extends Component {
-
-
-	state = {
- 
-		portfolios: [
-			[
-				{ id: 0, name: 'company1', value: 1000, percentage: 50 },
-				{ id: 1, name: 'company2', value: 1000, percentage: 50 },
-			],
-		]
-	}
-
-	handleNewPortfolio = () => this.setState({ portfolios: [...this.state.portfolios, undefined] });
 
 	render() {
 
-		const { portfolios } = this.state;
+		const { portfolios, addPortfolio } = this.props;
 
 		return (
 
 			<div class="actives-app">
 				{
-					portfolios.map((actives) => {
+					portfolios.map(({id, actives}) => {
 						return (
 							<div>
 								<TableActives actives={actives}></TableActives>
@@ -34,15 +24,22 @@ class App extends Component {
 						)
 					})
 				}
-				
-				<p></p>
-				<button onClick={this.handleNewPortfolio}>Novo portfólio</button>
 
-		
+				<p></p>
+				<button onClick={addPortfolio}>Novo portfólio</button>
+
+
 			</div>
 
 		);
 	}
 }
 
-export default App;
+
+const mapStateToProps = store => ({portfolios: store.portfolios});
+
+const mapDispatchToPropos = dispatch => bindActionCreators({addPortfolio}, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToPropos)(App);
+
+

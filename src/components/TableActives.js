@@ -195,6 +195,7 @@ class TableActives extends Component {
 
     return (
       <div className='table-actives'>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous"></link>
         <hr style={styles.color} ></hr>
         <table>
           <th className="active-name">Ativos({actives.length})</th>
@@ -203,7 +204,7 @@ class TableActives extends Component {
             <br></br><span>(Restante: {(capital - total).toFixed(2)})</span>
           </th>
 
-          {this.renderTotalPercentage(totalPercentage)}
+          <th className={totalPercentage.toFixed(2) === '100.00' ? '' : "active-percent"}> {totalPercentage.toFixed(2)}%</th>
 
           <th><ColorPicker color={this.state.color} onChange={this.updateColor}></ColorPicker></th>
 
@@ -225,7 +226,7 @@ class TableActives extends Component {
 
         </table>
         <br></br>
-        <button className="btn-add" onClick={this.addActive}>Adicionar ativo</button>
+        <button className="btn-add" onClick={this.addActive}> <i class="fas fa-plus-square"></i> Adicionar ativo</button>
       </div>
 
     );
