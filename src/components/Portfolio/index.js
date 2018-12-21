@@ -164,15 +164,54 @@ class Portfolio extends Component {
 
   }
 
+  handleUpdateValue = e => {
+
+    const { updateValue } = this.props;
+    const value = Number(e.target.value);
+    const id = Number(e.target.dataset.asset)
+   
+    updateValue(id, value);
+
+  }
+
+  handleUpdatePercentage = e => {
+
+    const { updatePercentage } = this.props;
+    const percentage = Number(e.target.value);
+    const id = Number(e.target.dataset.asset);
+   
+    updatePercentage(id, percentage);
+  }
+
+  handleUpdateCapital = e => {
+    
+    const { updateCapital } = this.props;
+    const capital = Number(e.target.value);
+
+    updateCapital(capital);
+  }
+
+
+  handleUpdateColor = colors => {
+
+    const { updateColor } = this.props;
+    const { color } = colors;
+
+    updateColor(color);
+
+  }
+
   updateColor = colors => {
 
     this.setState({color: colors.color});
   }
 
   render() {
-    const { capital, totalPercentage, total, color } = this.state;
+    // const { capital, totalPercentage, total, color } = this.state;
 
-    const { id, assets, removePortfolio, addAsset, removeAsset } = this.props;
+    const { id, assets, removePortfolio, addAsset, removeAsset, capital, totalPercentage, total, color } = this.props;
+
+
   
     const styles = reactCSS({
 
@@ -193,23 +232,22 @@ class Portfolio extends Component {
         <table>
           <th className="asset-name">Ativos({assets.length})</th>
           <th className="asset-total">
-            R$<input type="number" value={capital.toFixed(2)} onChange={() => {}} />
+            R$<input type="number" value={capital.toFixed(2)} onChange={this.handleUpdateCapital} />
             <br></br><span>(Restante: {(capital - total).toFixed(2)})</span>
           </th>
 
           <th className={totalPercentage.toFixed(2) === '100.00' || totalPercentage.toFixed(2) === '0.00' ? '' : "asset-percent"}> {totalPercentage.toFixed(2)}%</th>
 
-          <th><ColorPicker color={this.state.color} onChange={() => {}}></ColorPicker></th>
+          <th><ColorPicker color={this.state.color} onChange={this.handleUpdateColor}></ColorPicker></th>
 
           {
             assets.map(asset => {
               return (
-
+              
                 <tr>
                   <td className="asset-name">{asset.name.toUpperCase()}</td>
-                  <td>R$<input type="number" data-asset={asset.id} value={asset.value.toFixed(2)} onChange={() => {}}/></td>
-                  <td><input type="number" data-asset={asset.id} value={asset.percentage.toFixed(2)} onChange={() => {}} /></td>
-
+                  <td>R$<input type="number" data-asset={asset.id} value={asset.value.toFixed(2)} onChange={this.handleUpdateValue}/></td>
+                  <td><input type="number" data-asset={asset.id} value={asset.percentage.toFixed(2)} onChange={this.handleUpdatePercentage} /></td>
                   <td><a className="btn-remove" data-asset={asset.id} onClick={() => removeAsset(asset.id)}>X</a></td>
                 </tr>
               );

@@ -82,7 +82,7 @@ const portfolio = (state = initialPortfolio, action) => {
     }
     case 'UPDATE_CAPITAL': {
       const { assets } = state;
-      return { ...state, total: action.portfolio.capital }
+      return { ...state, capital: action.portfolio.capital }
       //TODO: aplicar as regras de negocio
     }
     case 'UPDATE_TOTAL_PERCENT': {
@@ -121,13 +121,7 @@ const portfolios = (state = initialState, action) => {
 
     case 'UPDATE_PERCENTAGE':
 
-    case 'UPDATE_TOTAL':
-
     case 'UPDATE_CAPITAL':
-
-    case 'UPDATE_TOTAL_PERCENT':
-
-    case 'UNLOCK_PORTFOLIO':
 
     case 'UPDATE_COLOR': {
       return state.map(p => (p.id === action.portfolio.id) ? portfolio(p, action) : p);
