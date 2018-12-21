@@ -1,5 +1,3 @@
-let portId = 0;
-
 const initialState = [
   {
     ...initialPortfolio,
@@ -16,6 +14,7 @@ const initialState = [
 
 const initialPortfolio = {
   id: 0,
+  nextActive: 0,
   actives: [],
   capital: 0,
   total: 0,
@@ -42,7 +41,7 @@ const active = (state = initialActive, action) => {
     case 'UPDATE_PERCENTAGE': {
       return { ...state, percentage: action.active.percentage };
     }
-    default: 
+    default:
       return state;
   }
 }
@@ -54,47 +53,51 @@ const portfolio = (state = initialPortfolio, action) => {
       return { ...state };
     }
     case 'ADD_ACTIVE': {
-      return {...state, actives: active(undefined, action)}
+      return {
+        ...state,
+        actives: [...state.actives, active({ ...initialActive, id: state.nextActive + 1 }, action)],
+        nextActive: state.nextActive + 1,
+      }
     }
     case 'REMOVE_ACTIVE': {
       const { actives } = state;
-      return {...state, actives: actives.filter(active => active.id !== action.active.id)};
+      return { ...state, actives: actives.filter(active => active.id !== action.active.id) };
       //TODO: aplicar as regras de negocio 
     }
     case 'UPDATE_VALUE': {
       const { actives } = state;
-      return {...state, actives: actives.map(a => (a.id === action.active.id) ? active(a, action) : a)};
+      return { ...state, actives: actives.map(a => (a.id === action.active.id) ? active(a, action) : a) };
       //TODO: aplicar as regras de negocio
     }
     case 'UPDATE_PERCENTAGE': {
       const { actives } = state;
-      return {...state, actives: actives.map(a => (a.id === action.active.id) ? active(a, action) : a)};
+      return { ...state, actives: actives.map(a => (a.id === action.active.id) ? active(a, action) : a) };
       //TODO: aplicar as regras de negocio
     }
     case 'UPDATE_TOTAL': {
       const { actives } = state;
-      return {...state, total: action.portfolio.total}
+      return { ...state, total: action.portfolio.total }
       //TODO: aplicar as regras de negocio
     }
     case 'UPDATE_CAPITAL': {
       const { actives } = state;
-      return {...state, total: action.portfolio.capital}
+      return { ...state, total: action.portfolio.capital }
       //TODO: aplicar as regras de negocio
     }
     case 'UPDATE_TOTAL_PERCENT': {
       const { actives } = state;
-      return {...state, total: action.portfolio.totalPercentage}
+      return { ...state, total: action.portfolio.totalPercentage }
       //TODO: aplicar as regras de negocio      
     }
     case 'UNLOCK_PORTFOLIO': {
-      return {...state, locked: false}
+      return { ...state, locked: false }
     }
     case 'UPDATE_COLOR': {
-      return {...state, color: action.portfolio.color}
+      return { ...state, color: action.portfolio.color }
     }
-    default: 
+    default:
       return state;
-    
+
   }
 
 }
@@ -107,27 +110,27 @@ const portfolios = (state = initialState, action) => {
     case 'REMOVE_PORTFOLIO': {
       return state.filter(portfolio => (portfolio.id !== action.id));
     }
-    case 'ADD_ACTIVE': 
+    case 'ADD_ACTIVE':
 
-    case 'REMOVE_ACTIVE': 
+    case 'REMOVE_ACTIVE':
 
-    case 'UPDATE_VALUE': 
+    case 'UPDATE_VALUE':
 
-    case 'UPDATE_PERCENTAGE': 
+    case 'UPDATE_PERCENTAGE':
 
-    case 'UPDATE_TOTAL': 
+    case 'UPDATE_TOTAL':
 
-    case 'UPDATE_CAPITAL': 
+    case 'UPDATE_CAPITAL':
 
-    case 'UPDATE_TOTAL_PERCENT': 
+    case 'UPDATE_TOTAL_PERCENT':
 
-    case 'UNLOCK_PORTFOLIO': 
+    case 'UNLOCK_PORTFOLIO':
 
     case 'UPDATE_COLOR': {
       return state.map(p => (p.id === action.portfolio.id) ? portfolio(p, action) : p);
     }
-    default: 
-      return state;    
+    default:
+      return state;
 
   }
 }

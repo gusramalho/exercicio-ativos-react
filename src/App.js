@@ -31,7 +31,7 @@ class App extends Component {
 				}
 
 				<p></p>
-				<button onClick={addPortfolio}>Novo portfólio</button>
+				<button onClick={() => addPortfolio(undefined)}>Novo portfólio</button>
 
 
 			</div>
