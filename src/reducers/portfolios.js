@@ -14,7 +14,6 @@ const initialState = [
   },
 ]
 
-
 const initialPortfolio = {
   id: 0,
   actives: [],
@@ -125,7 +124,7 @@ const portfolios = (state = initialState, action) => {
     case 'UNLOCK_PORTFOLIO': 
 
     case 'UPDATE_COLOR': {
-      return state.map(portfolio => (p.id === action.portfolio.id) ? portfolio(p, action) : p);
+      return state.map(p => (p.id === action.portfolio.id) ? portfolio(p, action) : p);
     }
     default: 
       return state;    
