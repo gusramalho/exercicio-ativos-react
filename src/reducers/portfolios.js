@@ -1,3 +1,5 @@
+import { updateTotal } from "../actions";
+
 const initialPortfolio = {
   id: 0,
   nextAsset: 0,
@@ -8,8 +10,6 @@ const initialPortfolio = {
   locked: true,
   color: '#1c1c1c',
 }
-
-
 
 const initialState = [
   {
@@ -23,19 +23,16 @@ const initialState = [
     total: 2000,
     capital: 2000,
     totalPercentage: 100,
-    locked: false,
-   
+    locked: false,   
   },
 ]
-
-
 
 const initialAsset = {
   id: 0,
   name: 'ativo',
   value: 0,
   percentage: 0,
-}
+};
 
 const asset = (state = initialAsset, action) => {
   switch (action.type) {
@@ -53,12 +50,14 @@ const asset = (state = initialAsset, action) => {
   }
 }
 
+
 const portfolio = (state = initialPortfolio, action) => {
 
   switch (action.type) {
     case 'ADD_PORTFOLIO': {
       return { ...state };
     }
+
     case 'ADD_ASSET': {
       return {
         ...state,
@@ -66,39 +65,94 @@ const portfolio = (state = initialPortfolio, action) => {
         nextAsset: state.nextAsset + 1,
       }
     }
+
     case 'REMOVE_ASSET': {
-      const { assets } = state;
-      return { ...state, assets: assets.filter(asset => asset.id !== action.asset.id) };
-      //TODO: aplicar as regras de negocio 
+      const { assets, locked, capital } = state;
+
+      let updatedAssets = assets.filter(asset => asset.id !== action.asset.id);
+      const updatedTotal = updatedAssets.reduce((total, asset) => total + asset.value, 0);
+
+      if (locked)
+        updatedAssets = updatedAssets.map(asset => ({ ...asset, percentage: (updatedTotal !== 0) ? asset.value / updatedTotal * 100 : 0 }));
+
+      return {
+        ...state, 
+        assets: updatedAssets, 
+        capital: (locked) ? updatedTotal : capital,
+        totalPercentage: updatedAssets.reduce((total,  asset) => total + asset.percentage, 0),
+      }
     }
+
     case 'UPDATE_VALUE': {
-      const { assets } = state;
-      return { ...state, assets: assets.map(a => (a.id === action.asset.id) ? asset(a, action) : a) };
-      //TODO: aplicar as regras de negocio
+      const { assets, capital, locked } = state;
+      const { value, id } = action.asset;
+
+      let updatedAssets = assets.map(asset => (asset.id === id) ? { ...asset, value } : asset);
+      const updatedTotal = updatedAssets.reduce((total, asset) => total + asset.value, 0);
+    
+      if (locked)
+        updatedAssets = updatedAssets.map(asset => ({ ...asset, percentage: asset.value / updatedTotal * 100 }));
+      else
+        updatedAssets = updatedAssets.map(asset => (asset.id === id) ? { ...asset, percentage: asset.value / capital * 100 } : asset);
+
+      return {
+        ...state,
+        assets: updatedAssets,
+        capital: (locked) ? updatedTotal : capital,
+        total: updatedTotal,
+        totalPercentage: updatedAssets.reduce((total,  asset) => total + asset.percentage, 0),     
+      }
+
     }
+
     case 'UPDATE_PERCENTAGE': {
-      const { assets } = state;
-      return { ...state, assets: assets.map(a => (a.id === action.asset.id) ? asset(a, action) : a) };
-      //TODO: aplicar as regras de negocio
+
+      const { assets, capital, locked, totalPercentage } = state;
+      const { percentage, id } = action.asset;  
+
+      let updatedAssets = assets.map(asset => (asset.id === id) ? { ...asset, percentage } : asset);
+
+      if (!locked) 
+        updatedAssets = updatedAssets.map(asset => (asset.id === id) ? { ...asset, value: percentage / 100 * capital } : asset);
+      else
+        updatedAssets = updatedAssets.map(asset => (asset.id === id) ? { ...asset, value: percentage * capital / totalPercentage } : asset);
+      
+      const updatedTotal = updatedAssets.reduce((total, asset) => total + asset.value, 0);
+      const updatedTotalPercentage = updatedAssets.reduce((total, asset) => total + asset.percentage, 0);
+
+      return {
+        ...state,
+        assets: updatedAssets,
+        capital:  (locked) ? updatedTotal : capital,
+        total: updatedTotal,
+        totalPercentage: updatedTotalPercentage,
+      };
+      
     }
-    case 'UPDATE_TOTAL': {
-      const { assets } = state;
-      return { ...state, total: action.portfolio.total }
-      //TODO: aplicar as regras de negocio
-    }
+
     case 'UPDATE_CAPITAL': {
-      const { assets } = state;
-      return { ...state, capital: action.portfolio.capital }
-      //TODO: aplicar as regras de negocio
+      const { assets, locked } = state;
+      const { capital } = action.portfolio;
+
+      if (!locked) {
+        const updatedAssets = assets.map(asset => ({ ...asset, value: asset.percentage * capital / 100 }));
+    
+        this.setState({
+          assets: updatedAssets,
+          capital,
+          total: this.total(updatedAssets),
+          totalPercentage: this.totalPercentage(updatedAssets),
+        })
+    
+      } else {
+    
+        const updatedAssets = assets.map(asset => ({ ...asset, percentage: asset.value / capital * 100 }));
+        
+    
+      }
+
     }
-    case 'UPDATE_TOTAL_PERCENT': {
-      const { assets } = state;
-      return { ...state, total: action.portfolio.totalPercentage }
-      //TODO: aplicar as regras de negocio      
-    }
-    case 'UNLOCK_PORTFOLIO': {
-      return { ...state, locked: false }
-    }
+
     case 'UPDATE_COLOR': {
       return { ...state, color: action.portfolio.color }
     }
