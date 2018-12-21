@@ -5,6 +5,7 @@ const initialState = [
       { id: 0, name: 'company1', value: 1000, percentage: 50 },
       { id: 1, name: 'company2', value: 1000, percentage: 50 },
     ],
+    nextAsset: 1,
     total: 2000,
     capital: 2000,
     totalPercentage: 100,

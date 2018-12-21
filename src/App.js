@@ -12,7 +12,7 @@ class App extends Component {
 
 	render() {
 
-		const { portfolios, addPortfolio, removePortfolio, addAsset } = this.props;
+		const { portfolios, addPortfolio, removePortfolio, addAsset, removeAsset } = this.props;
 
 		return (
 
@@ -27,6 +27,7 @@ class App extends Component {
 									assets={assets}
 									removePortfolio={() => removePortfolio(id)}
 									addAsset={() => addAsset(id)}
+									removeAsset={asset_id => removeAsset(id, asset_id)}
 								/>
 								
 							</div>

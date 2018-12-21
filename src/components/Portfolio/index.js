@@ -172,7 +172,7 @@ class Portfolio extends Component {
   render() {
     const { capital, totalPercentage, total, color } = this.state;
 
-    const { id, assets, removePortfolio, addAsset } = this.props;
+    const { id, assets, removePortfolio, addAsset, removeAsset } = this.props;
   
     const styles = reactCSS({
 
@@ -209,7 +209,8 @@ class Portfolio extends Component {
                   <td className="asset-name">{asset.name.toUpperCase()}</td>
                   <td>R$<input type="number" data-asset={asset.id} value={asset.value.toFixed(2)} onChange={() => {}}/></td>
                   <td><input type="number" data-asset={asset.id} value={asset.percentage.toFixed(2)} onChange={() => {}} /></td>
-                  <td><a className="btn-remove" data-asset={asset.id} onClick={() => {}}>X</a></td>
+
+                  <td><a className="btn-remove" data-asset={asset.id} onClick={() => removeAsset(asset.id)}>X</a></td>
                 </tr>
               );
             })
