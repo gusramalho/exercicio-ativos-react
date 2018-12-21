@@ -12,7 +12,7 @@ class App extends Component {
 
 	render() {
 
-		const { portfolios, addPortfolio } = this.props;
+		const { portfolios, addPortfolio, removePortfolio } = this.props;
 
 		return (
 
@@ -22,7 +22,11 @@ class App extends Component {
 						
  						return (
 							<div>
-								<Portfolio id={id} assets={assets}></Portfolio> 
+								<Portfolio 
+									id={id} 
+									assets={assets}
+									removePortfolio={() => removePortfolio(id)}
+								/>
 								
 							</div>
 						)
@@ -40,10 +44,6 @@ class App extends Component {
 }
 
 
-const mapStateToProps = store => ({portfolios: store.portfolios});
-
-const mapDispatchToPropos = dispatch => bindActionCreators({addPortfolio}, dispatch);
-
-export default connect(mapStateToProps, mapDispatchToPropos)(App);
+export default App;
 
 

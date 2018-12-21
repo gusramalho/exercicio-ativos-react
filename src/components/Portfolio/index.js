@@ -170,8 +170,8 @@ class Portfolio extends Component {
   render() {
     const { assets, capital, totalPercentage, total, color } = this.state;
 
-    const { id, deletePortfolio } = this.props;
-
+    const { id, removePortfolio } = this.props;
+  
     const styles = reactCSS({
 
       'default': {
@@ -222,7 +222,7 @@ class Portfolio extends Component {
         <br></br>
         <div className='footer'>
           <button className="btn-add" onClick={this.addAsset} style={styles.iconColor} > <i class="fas fa-plus-square"></i> Adicionar ativo</button>
-          <button className="btn-remove-portfolio" style={styles.iconColor} ><i  class="fas fa-times-circle"></i> Excluir portfolio</button>
+          <button className="btn-remove-portfolio" onClick={removePortfolio} style={styles.iconColor} ><i  class="fas fa-times-circle"></i> Excluir portfolio</button>
         </div>
         <hr style={styles.hrColor}></hr>
       </div>
