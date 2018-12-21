@@ -1,7 +1,7 @@
 const initialState = [
   {
     ...initialPortfolio,
-    actives: [
+    assets: [
       { id: 0, name: 'company1', value: 1000, percentage: 50 },
       { id: 1, name: 'company2', value: 1000, percentage: 50 },
     ],
@@ -14,8 +14,8 @@ const initialState = [
 
 const initialPortfolio = {
   id: 0,
-  nextActive: 0,
-  actives: [],
+  nextAsset: 0,
+  assets: [],
   capital: 0,
   total: 0,
   totalPercentage: 0,
@@ -23,23 +23,23 @@ const initialPortfolio = {
   color: '#1c1c1c',
 }
 
-const initialActive = {
+const initialAsset = {
   id: 0,
   name: 'ativo',
   value: 0,
   percentage: 0,
 }
 
-const active = (state = initialActive, action) => {
+const asset = (state = initialAsset, action) => {
   switch (action.type) {
-    case 'ADD_ACTIVE': {
+    case 'ADD_ASSET': {
       return { ...state };
     }
     case 'UPDATE_VALUE': {
-      return { ...state, value: action.active.value };
+      return { ...state, value: action.asset.value };
     }
     case 'UPDATE_PERCENTAGE': {
-      return { ...state, percentage: action.active.percentage };
+      return { ...state, percentage: action.asset.percentage };
     }
     default:
       return state;
@@ -52,40 +52,40 @@ const portfolio = (state = initialPortfolio, action) => {
     case 'ADD_PORTFOLIO': {
       return { ...state };
     }
-    case 'ADD_ACTIVE': {
+    case 'ADD_ASSET': {
       return {
         ...state,
-        actives: [...state.actives, active({ ...initialActive, id: state.nextActive + 1 }, action)],
-        nextActive: state.nextActive + 1,
+        assets: [...state.assets, asset({ ...initialAsset, id: state.nextAsset + 1 }, action)],
+        nextAsset: state.nextAsset + 1,
       }
     }
-    case 'REMOVE_ACTIVE': {
-      const { actives } = state;
-      return { ...state, actives: actives.filter(active => active.id !== action.active.id) };
+    case 'REMOVE_ASSET': {
+      const { assets } = state;
+      return { ...state, assets: assets.filter(asset => asset.id !== action.asset.id) };
       //TODO: aplicar as regras de negocio 
     }
     case 'UPDATE_VALUE': {
-      const { actives } = state;
-      return { ...state, actives: actives.map(a => (a.id === action.active.id) ? active(a, action) : a) };
+      const { assets } = state;
+      return { ...state, assets: assets.map(a => (a.id === action.asset.id) ? asset(a, action) : a) };
       //TODO: aplicar as regras de negocio
     }
     case 'UPDATE_PERCENTAGE': {
-      const { actives } = state;
-      return { ...state, actives: actives.map(a => (a.id === action.active.id) ? active(a, action) : a) };
+      const { assets } = state;
+      return { ...state, assets: assets.map(a => (a.id === action.asset.id) ? asset(a, action) : a) };
       //TODO: aplicar as regras de negocio
     }
     case 'UPDATE_TOTAL': {
-      const { actives } = state;
+      const { assets } = state;
       return { ...state, total: action.portfolio.total }
       //TODO: aplicar as regras de negocio
     }
     case 'UPDATE_CAPITAL': {
-      const { actives } = state;
+      const { assets } = state;
       return { ...state, total: action.portfolio.capital }
       //TODO: aplicar as regras de negocio
     }
     case 'UPDATE_TOTAL_PERCENT': {
-      const { actives } = state;
+      const { assets } = state;
       return { ...state, total: action.portfolio.totalPercentage }
       //TODO: aplicar as regras de negocio      
     }
@@ -110,9 +110,9 @@ const portfolios = (state = initialState, action) => {
     case 'REMOVE_PORTFOLIO': {
       return state.filter(portfolio => (portfolio.id !== action.id));
     }
-    case 'ADD_ACTIVE':
+    case 'ADD_ASSET':
 
-    case 'REMOVE_ACTIVE':
+    case 'REMOVE_ASSET':
 
     case 'UPDATE_VALUE':
 

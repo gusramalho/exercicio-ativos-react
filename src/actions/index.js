@@ -10,27 +10,27 @@ export const removePortfolio = id => ({
   id,
 });
 
-export const addActive = portfolio => ({
-  type: 'ADD_ACTIVE',
+export const addAsset = portfolio => ({
+  type: 'ADD_ASSET',
   portfolio,
 });
 
-export const removeActive = (portfolio, active) => ({
-  type: 'REMOVE_ACTIVE',
+export const removeAsset = (portfolio, asset) => ({
+  type: 'REMOVE_ASSET',
   portfolio,
-  active,
+  asset,
 });
 
-export const updateValue = (portfolio, active) => ({
+export const updateValue = (portfolio, asset) => ({
   type: 'UPDATE_VALUE',
   portfolio,
-  active,
+  asset,
 });
 
-export const updatePercentage = (portfolio, active) => ({
+export const updatePercentage = (portfolio, asset) => ({
   type: 'UPDATE_PERCENTAGE',
   portfolio,
-  active,
+  asset,
 });
 
 export const updateTotal = portfolio => ({

@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import TableActives from './components/TableActives';
+import Portfolio from './components/Portfolio/';
 
 import { addPortfolio } from './actions';
-
 
 import './App.css';
 
@@ -17,13 +16,13 @@ class App extends Component {
 
 		return (
 
-			<div class="actives-app">
+			<div class="assets-app">
 				{
-					portfolios.map(({id, actives}) => {
+					portfolios.map(({id, assets}) => {
 						
  						return (
 							<div>
-								<TableActives id={id} actives={actives}></TableActives> 
+								<Portfolio id={id} assets={assets}></Portfolio> 
 								
 							</div>
 						)
@@ -31,7 +30,7 @@ class App extends Component {
 				}
 
 				<p></p>
-				<button onClick={() => addPortfolio(undefined)}>Novo portfólio</button>
+				<button onClick={addPortfolio}>Novo portfólio</button>
 
 
 			</div>
