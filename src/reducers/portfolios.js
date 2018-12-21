@@ -1,18 +1,3 @@
-const initialState = [
-  {
-    ...initialPortfolio,
-    assets: [
-      { id: 0, name: 'company1', value: 1000, percentage: 50 },
-      { id: 1, name: 'company2', value: 1000, percentage: 50 },
-    ],
-    nextAsset: 1,
-    total: 2000,
-    capital: 2000,
-    totalPercentage: 100,
-    locked: false,
-  },
-]
-
 const initialPortfolio = {
   id: 0,
   nextAsset: 0,
@@ -23,6 +8,27 @@ const initialPortfolio = {
   locked: true,
   color: '#1c1c1c',
 }
+
+
+
+const initialState = [
+  {
+    ...initialPortfolio,
+    
+    assets: [
+      { id: 0, name: 'company1', value: 1000, percentage: 50 },
+      { id: 1, name: 'company2', value: 1000, percentage: 50 },
+    ],
+    nextAsset: 1,
+    total: 2000,
+    capital: 2000,
+    totalPercentage: 100,
+    locked: false,
+   
+  },
+]
+
+
 
 const initialAsset = {
   id: 0,

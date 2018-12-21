@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 
 import Portfolio from './components/Portfolio/';
 
-import { addPortfolio } from './actions';
 
 import './App.css';
 
@@ -20,7 +17,7 @@ class App extends Component {
 			<div class="assets-app">
 				{
 					portfolios.map(({id, assets, capital, total, totalPercentage, color}) => {
-						
+
  						return (
 							<div>
 								<Portfolio 
