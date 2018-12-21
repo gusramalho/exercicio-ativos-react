@@ -14,6 +14,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   addPortfolio: () => dispatch(addPortfolio()),
   removePortfolio: id => dispatch(removePortfolio(id)),
+  addAsset: id => dispatch(addAsset(id)),
 })
 
 export default connect(

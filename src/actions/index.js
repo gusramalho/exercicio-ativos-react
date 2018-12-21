@@ -2,7 +2,7 @@ let nextPortfolio = 0;
 
 export const addPortfolio = () => ({
   type: 'ADD_PORTFOLIO',
-  portfolio: { id: nextPortfolio++ },
+  id: nextPortfolio++,
 });
 
 export const removePortfolio = id => ({
@@ -10,9 +10,9 @@ export const removePortfolio = id => ({
   id,
 });
 
-export const addAsset = portfolio => ({
+export const addAsset = id => ({
   type: 'ADD_ASSET',
-  portfolio,
+  id,
 });
 
 export const removeAsset = (portfolio, asset) => ({

@@ -105,12 +105,14 @@ const portfolio = (state = initialPortfolio, action) => {
 const portfolios = (state = initialState, action) => {
   switch (action.type) {
     case 'ADD_PORTFOLIO': {
-      return [...state, portfolio(action.portfolio, action)];
+      return [...state, portfolio({...initialPortfolio, id: action.id}, action)];
     }
     case 'REMOVE_PORTFOLIO': {
       return state.filter(portfolio => (portfolio.id !== action.id));
     }
-    case 'ADD_ASSET':
+    case 'ADD_ASSET': {
+      return state.map(p => p.id === action.id ? portfolio(p, action) : p);
+    }
 
     case 'REMOVE_ASSET':
 

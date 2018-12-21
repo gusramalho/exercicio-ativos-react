@@ -17,24 +17,26 @@ class Portfolio extends Component {
     color:  '#1c1c1c',
   }
 
-  componentDidMount() {
-    const { assets } = this.props;
+  // componentDidMount() {
 
-    if (assets !== undefined) {
-      const total = assets.reduce((total, asset) => total + asset.value, 0);
+    
+  //   const { assets } = this.props;
 
-      this.setState({
-        assets,
-        currentId: assets.length - 1,
-        locked: false,
-        capital: total,
-        total: total,
-        totalPercentage: this.totalPercentage(assets),
-        color:  '#1c1c1c',
-      });
+  //   if (assets !== undefined) {
+  //     const total = assets.reduce((total, asset) => total + asset.value, 0);
 
-    }
-  }
+  //     this.setState({
+  //       assets,
+  //       currentId: assets.length - 1,
+  //       locked: false,
+  //       capital: total,
+  //       total: total,
+  //       totalPercentage: this.totalPercentage(assets),
+  //       color:  '#1c1c1c',
+  //     });
+
+  //   }
+  // }
 
   total = assets => assets.reduce((total, asset) => total + asset.value, 0);
 
@@ -168,9 +170,9 @@ class Portfolio extends Component {
   }
 
   render() {
-    const { assets, capital, totalPercentage, total, color } = this.state;
+    const { capital, totalPercentage, total, color } = this.state;
 
-    const { id, removePortfolio } = this.props;
+    const { id, assets, removePortfolio, addAsset } = this.props;
   
     const styles = reactCSS({
 
@@ -181,9 +183,6 @@ class Portfolio extends Component {
         iconColor: {
           color,
         }
-
-
-
       },
     });
 
@@ -194,13 +193,13 @@ class Portfolio extends Component {
         <table>
           <th className="asset-name">Ativos({assets.length})</th>
           <th className="asset-total">
-            R$<input type="number" value={capital.toFixed(2)} onChange={this.updateCapital} />
+            R$<input type="number" value={capital.toFixed(2)} onChange={() => {}} />
             <br></br><span>(Restante: {(capital - total).toFixed(2)})</span>
           </th>
 
           <th className={totalPercentage.toFixed(2) === '100.00' || totalPercentage.toFixed(2) === '0.00' ? '' : "asset-percent"}> {totalPercentage.toFixed(2)}%</th>
 
-          <th><ColorPicker color={this.state.color} onChange={this.updateColor}></ColorPicker></th>
+          <th><ColorPicker color={this.state.color} onChange={() => {}}></ColorPicker></th>
 
           {
             assets.map(asset => {
@@ -208,20 +207,18 @@ class Portfolio extends Component {
 
                 <tr>
                   <td className="asset-name">{asset.name.toUpperCase()}</td>
-                  <td>R$<input type="number" data-asset={asset.id} value={asset.value.toFixed(2)} onChange={this.updateValue} /></td>
-                  <td><input type="number" data-asset={asset.id} value={asset.percentage.toFixed(2)} onChange={this.updatePercentage} /></td>
-                  <td><a className="btn-remove" data-asset={asset.id} onClick={this.removeAsset}>X</a></td>
+                  <td>R$<input type="number" data-asset={asset.id} value={asset.value.toFixed(2)} onChange={() => {}}/></td>
+                  <td><input type="number" data-asset={asset.id} value={asset.percentage.toFixed(2)} onChange={() => {}} /></td>
+                  <td><a className="btn-remove" data-asset={asset.id} onClick={() => {}}>X</a></td>
                 </tr>
-
               );
             })
           }
 
-
         </table>
         <br></br>
         <div className='footer'>
-          <button className="btn-add" onClick={this.addAsset} style={styles.iconColor} > <i class="fas fa-plus-square"></i> Adicionar ativo</button>
+          <button className="btn-add" onClick={addAsset} style={styles.iconColor} > <i class="fas fa-plus-square"></i> Adicionar ativo</button>
           <button className="btn-remove-portfolio" onClick={removePortfolio} style={styles.iconColor} ><i  class="fas fa-times-circle"></i> Excluir portfolio</button>
         </div>
         <hr style={styles.hrColor}></hr>
